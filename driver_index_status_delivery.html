@@ -1,0 +1,81 @@
+
+	<!-- 顶部标题 -->
+	<header class="bar bar-nav default-style">
+		
+		
+		 <!-- <a class="icon icon-left pull-left" href="user_address_index_second.html" data-transition="slide-out"></a>  -->
+		<h1 class="title">配送列表</h1>
+	</header>
+
+	<!-- 底部导航栏 -->
+	<nav class="bar bar-tab default-style">
+				<a class="tab-item  current" href="#/driver/start">
+					<!-- <span class="icon icon-dynamic-white"></span> -->
+					<span class="tab-label">我的任务</span>
+				</a>
+				<a class="tab-item" href="#/me/index">
+					<!-- <span class="icon icon-address-gray"></span> -->
+					<span class="tab-label">个人中心</span>
+				</a>
+			</nav>
+	
+	<div class="black-top-area bar bar-header-secondary">
+				<ul class="three-ul">
+					<li>
+						<a href="#/driver/start" data-transition="slide-out">未配送<i>99</i></a>
+					</li>
+					<li class="current">
+						<a href="#/driver/delivery" data-transition="slide-in">配送中</a>
+					</li>
+					<li>
+						<a href="#/driver/complete" data-transition="slide-in">已签收</a>
+					</li>
+				</ul>
+			</div>
+
+	<!-- 搜索栏 -->
+	<div class="bar bar-footer white-bg" style="top:4.7rem">
+	  <div class="searchbar" >
+	    <a class="searchbar-cancel">取消</a>
+	    <div class="search-input">
+	      <label class="icon icon-search" for="search"></label>
+	      <input type="search" id='search' placeholder='输入关键字...'/>
+	    </div>
+	  </div>
+	</div>
+
+	
+	<!-- 页面内容区域 -->
+	<div class="content" id="driver_model" style="top:7rem;">
+		<style type="text/css">
+			.content {
+			    bottom:2.2rem!important;
+			}
+			.bar-tab {
+			    display: block;
+			}
+		</style>
+	    <div class="card">
+			<div class="card-header">
+				<span>送货状态：<span class="danger-color">等待配送</span></span>
+			</div>
+			<div class="card-content">
+				<a class="card-content-inner  arrow-bg-right list-font-info" style="display:block" href="driver_order_more.html" data-transition="slide-in">
+					订单编号：201513112345678<br/>
+					送货地址：长沙市雨花区万科金域华府<br/>
+					支付方式：现金<br/>
+					订单金额：<span class="price">￥4999.99</span>&nbsp;&nbsp;&nbsp;搬运费：<span class="price">￥99.99</span><br/>
+					配送时间：2015.07.31-2015.30.50
+				</a>
+			</div>
+			<ul class="card-footer card-footer-ul clearfix">
+				<li class="pull-left">
+					<a href="#" class="button button-fill button-warning prompt-title-ok-cancel" id="add_delivery_cost">+ 搬运费</a>
+				</li>
+				<li class="pull-right">
+					<a href="#" class="button  button-fill">客户签收</a>
+				</li>
+			</ul>
+		</div>
+
+	</div>

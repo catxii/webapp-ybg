@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>云包公-工地管理</title>
+	<link rel="stylesheet" href="libs/sui/css/sm.min.css">
+	<link rel="stylesheet" href="libs/sui/css/sm-extend.min.css">
+<link rel="stylesheet" href="libs/alifontico/iconfont.css">
+<link rel="stylesheet" href="css/style-plugin.css">
+	
+</head>
+<body>
+	<!-- 顶部标题 -->
+	<header class="bar bar-nav default-style">
+		
+		<!-- <a class="icon icon-left pull-left" href="#" data-transition="slide-out"></a> -->
+		<h1 class="title">云包公销售系统</h1>
+	</header>
+	
+
+	<!-- 页面内容区域 -->
+	<div class="content padding-plus register-box"  style="top: 2.2rem;">
+		
+		<div class="logo-box"></div>
+
+		<!-- <ul class="alert-ul">
+			<li class="danger-color">账号未激活，请等待客服激活...</li>
+			<li class="btn"></li>
+		</ul> -->
+		
+		<ul class="forget-list list-block ">
+			<li>
+				<div class="item-inner ">
+		            <div class="item-title label"  style="width:25%%;">手机号</div>
+		            <div class="item-input">
+		              <input type="tel" placeholder="输入手机号">
+		            </div>
+		        </div>
+			</li>
+			<li>
+				
+				<div class="item-inner verify">
+		            <div class="item-title label"  style="width:25%%;">验证码</div>
+		            <div class="item-input" style="padding-right:5rem;">
+		              <input type="tel" placeholder="输入验证码">
+		              <a href="#" class="button button-fill button-default position-right " style="top:.5rem">获取验证码</a>
+		            </div>
+		        </div>
+			</li>
+			<li class="no-padding-margin">
+				<!-- 获取验证码可用时，去掉disabled -->
+	             <div class="item-inner ">
+		            <div class="item-title label" style="width:25%%;">所属地</div>
+		            <div class="item-input">
+		              <select >
+						<option value="长沙">请选择城市</option>
+						<option value="长沙">长沙</option>
+						<option value="长沙">武汉</option>
+					  </select>
+		            </div>
+		          </div>
+			</li>
+			<li class="confirm">
+				<!-- 获取验证码可用时，去掉disabled -->
+				<a href="saler-client-index.html" class="button button-fill button-big button-default">确 认</a>
+			</li>
+
+		</ul>
+
+
+
+
+	</div>
+
+	<script type='text/javascript' src='libs/sui/js/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='libs/sui/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='libs/sui/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='libs/toucher/toucher.js' charset='utf-8'></script>
+	<script type='text/javascript' src='js/app.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		$(document).on('click','.wait-loading', function () {
+		      $.showIndicator();
+		      setTimeout(function () {
+		          $.hideIndicator();
+		      }, 2000);
+		  });
+		  // 标准弹出等待框，带标题
+		  $(document).on('click','.wait-loading-large', function () {
+		    $.showPreloader('加载中，请稍后')
+		    setTimeout(function () {
+		        $.hidePreloader();
+		    }, 2000);
+		  });
+	</script>
+</body>
+</html>
