@@ -1,82 +1,81 @@
+<!-- 顶部标题 -->
+<header class="bar bar-nav default-style">
 
-			<!-- 顶部标题 -->
-			<header class="bar bar-nav default-style">
+	<!-- <a class="icon icon-left pull-left" href="user_address_index_second.html" data-transition="slide-out"></a>  -->
+	<h1 class="title">配送列表</h1>
+</header>
 
-				<!-- <a class="icon icon-left pull-left" href="user_address_index_second.html" data-transition="slide-out"></a>  -->
-				<h1 class="title">配送列表</h1>
-			</header>
+<!-- 底部导航栏 -->
+<nav class="bar bar-tab default-style">
+	<a class="tab-item  current" href="#/driver/start" external>
+		<!-- <span class="icon icon-dynamic-white"></span> -->
+		<span class="tab-label">我的任务</span>
+	</a>
+	<a class="tab-item" href="#/me/index" external> 
+		<!-- <span class="icon icon-address-gray"></span> -->
+		<span class="tab-label">个人中心</span>
+	</a>
+</nav>
 
-			<!-- 底部导航栏 -->
-			<nav class="bar bar-tab default-style">
-				<a class="tab-item  current" href="#/driver/start">
-					<!-- <span class="icon icon-dynamic-white"></span> -->
-					<span class="tab-label">我的任务</span>
-				</a>
-				<a class="tab-item" href="#/me/index">
-					<!-- <span class="icon icon-address-gray"></span> -->
-					<span class="tab-label">个人中心</span>
-				</a>
-			</nav>
+<div class="black-top-area bar bar-header-secondary">
+	<ul class="three-ul">
+		<li class="current">
+			<a href="#/driver/start" data-transition="slide-out">未配送<i>{{startnum}}</i></a>
+		</li>
+		<li>
+			<a href="#/driver/delivery" data-transition="slide-in">配送中<i>{{startnum}}</i></a>
+		</li>
+		<li>
+			<a href="#/driver/complete" data-transition="slide-in">已签收<i>{{startnum}}</i></a>
+		</li>
+	</ul>
+</div>
 
-			<div class="black-top-area bar bar-header-secondary">
-				<ul class="three-ul">
-					<li class="current">
-						<a href="#/driver/start" data-transition="slide-out">未配送<i>99</i></a>
-					</li>
-					<li>
-						<a href="#/driver/delivery" data-transition="slide-in">配送中</a>
-					</li>
-					<li>
-						<a href="#/driver/complete" data-transition="slide-in">已签收</a>
-					</li>
-				</ul>
-			</div>
+<!-- 搜索栏 -->
+<div class="bar bar-footer white-bg" style="top:4.7rem">
+	<div class="searchbar">
+		<a class="searchbar-cancel">取消</a>
+		<div class="search-input">
+			<label class="icon icon-search" for="search"></label>
+			<input type="search" id='search' placeholder='输入关键字...' />
+		</div>
+	</div>
+</div>
 
-			<!-- 搜索栏 -->
-			<div class="bar bar-footer white-bg" style="top:4.7rem" >
-				<div class="searchbar">
-					<a class="searchbar-cancel">取消</a>
-					<div class="search-input">
-						<label class="icon icon-search" for="search"></label>
-						<input type="search" id='search' placeholder='输入关键字...' />
-					</div>
-				</div>
-			</div>
+<!-- 页面内容区域 -->
+<div class="content" style="top:7rem;">
 
-			<!-- 页面内容区域 -->
-			<div class="content" style="top:7rem;" >
-				
-				<style type="text/css">
-					.content {
-						bottom: 2.2rem!important;
-					}
-					
-					.bar-tab {
-						display: block;
-					}
-				</style>
+	<style type="text/css">
+		.content {
+			bottom: 2.2rem!important;
+		}
+		
+		.bar-tab {
+			display: block;
+		}
+	</style>
 
-				<div class="card" ng-repeat="list in statusList">
+	<div class="card" ng-repeat="list in statusList">
 
-					<div class="card-header">
-						<span>送货状态：<span class="danger-color">等待配送{{123}}</span></span>
-					</div>
-					<div class="card-content">
-						<a class="card-content-inner  arrow-bg-right list-font-info" style="display:block" href="driver_order_more.html" data-transition="slide-in">
+		<div class="card-header">
+			<span>送货状态：<span class="danger-color">等待配送</span></span>
+		</div>
+		<div class="card-content">
+			<a class="card-content-inner  arrow-bg-right list-font-info" style="display:block" href="#/driver/detail" data-transition="slide-in" external ng-click="view_order_detail()"> 
 					订单编号：{{list.order.code}}<br/>
 					送货地址：{{list.site_name.name}}<br/>
 					支付状态：<span ng-show="list.order.status_pay==1">已支付</span><span  ng-show="list.order.status_pay==0">未支付</span><span  ng-show="list.order.status_pay==2">未支付</span><br/>
-					订单金额：<span class="price">￥ {{list.order_price}}</span>&nbsp;&nbsp;&nbsp;搬运费：<span class="price">￥{{list.order_price}}</span><br/>
+					商品金额：<span class="price">￥ {{list.order_price.p1}}</span><br/>
+					搬运费用：<span class="price">￥{{list.order_price.p4}}</span><br/> 
 					创建时间：{{list.create_time}}
 				</a>
-					</div>
-					<ul class="card-footer card-footer-ul clearfix">
-						<li class="pull-right">
-							<a href="driver_order_more.html" class="button  button-fill">配送开始</a>
-						</li>
-					</ul>
-				</div>
-
-			</div>
 		</div>
+		<ul class="card-footer card-footer-ul clearfix">
+			<li class="pull-right">
+				<a class="button  button-fill" ng-click="start_delivery()">配送开始</a>
+			</li>
+		</ul>
+	</div>
 
+</div>
+</div>
