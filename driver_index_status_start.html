@@ -20,13 +20,13 @@
 <div class="black-top-area bar bar-header-secondary">
 	<ul class="three-ul">
 		<li class="current">
-			<a href="#/driver/start" data-transition="slide-out">未配送<i>{{startnum}}</i></a>
+			<a href="#/driver/start" data-transition="slide-out">未配送<i ng-show="startnum!==undefined && startnum!==0">{{startnum}}</i></a>
 		</li>
 		<li>
-			<a href="#/driver/delivery" data-transition="slide-in">配送中<i>{{startnum}}</i></a>
+			<a href="#/driver/delivery" data-transition="slide-in">配送中<i ng-show="deliverynum!==undefined && deliverynum!= 0">{{deliverynum}}</i></a>
 		</li>
 		<li>
-			<a href="#/driver/complete" data-transition="slide-in">已签收<i>{{startnum}}</i></a>
+			<a href="#/driver/complete" data-transition="slide-in">已签收<i ng-show="completenum!==undefined && completenum!= 0">{{completenum}}</i></a>
 		</li>
 	</ul>
 </div>

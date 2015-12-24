@@ -18,13 +18,13 @@
 <div class="black-top-area bar bar-header-secondary">
 	<ul class="three-ul">
 		<li>
-			<a href="#/driver/start" data-transition="slide-out">未配送</a>
+			<a href="#/driver/start" data-transition="slide-out">未配送<i ng-show="startnum!==undefined && startnum!==0">{{startnum}}</i></a>
 		</li>
 		<li class="current">
-			<a href="#/driver/delivery" data-transition="slide-in">配送中</a>
+			<a href="#/driver/delivery" data-transition="slide-in">配送中<i ng-show="deliverynum!==undefined && deliverynum!= 0">{{deliverynum}}</i></a>
 		</li>
 		<li>
-			<a href="#/driver/complete" data-transition="slide-in">已签收</a>
+			<a href="#/driver/complete" data-transition="slide-in">已签收<i ng-show="completenum!==undefined && completenum!= 0">{{completenum}}</i></a>
 		</li>
 	</ul>
 </div>
@@ -35,7 +35,7 @@
 		<a class="searchbar-cancel">取消</a>
 		<div class="search-input">
 			<label class="icon icon-search" for="search"></label>
-			<input type="search" id='search' placeholder='输入关键字...' />
+			<input type="search" id='search' placeholder='输入关键字...' ng-model="search"/>
 		</div>
 	</div>
 </div>
@@ -51,13 +51,13 @@
 			display: block;
 		}
 	</style>
-	<div class="card" ng-repeat="list in statusList">
+	<div class="card" ng-repeat="list in statusList  | filter:search |orderBy:'-start_time'">
 		<div class="card-header">
 			<span>送货状态：<span class="danger-color">配送中</span></span>
 		</div>
 		<div class="card-content">
 			<a class="card-content-inner  arrow-bg-right list-font-info" style="display:block" href="#/driver/detail" data-transition="slide-in" external  ng-click="view_order_detail()">
-				订单编号：{{list.order.code}}<br/>
+				订单编号：{{list}}<br/>
 				送货地址：{{list.site_name.name}}<br/>
 				支付方式：<span ng-show="list.order.status_pay==1">已支付</span><span  ng-show="list.order.status_pay==0">未支付</span><span  ng-show="list.order.status_pay==2">未支付</span><br/>
 				商品金额：<span class="price">￥ {{list.order_price.p1}}</span><br/>
