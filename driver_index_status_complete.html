@@ -32,7 +32,7 @@
 <!-- 搜索栏 -->
 <div class="bar bar-footer white-bg" style="top:4.7rem">
 	<div class="searchbar">
-		<a class="searchbar-cancel">取消</a>
+		<a class="searchbar-cancel" ng-click=" search ='' ">取消</a>
 		<div class="search-input">
 			<label class="icon icon-search" for="search"></label>
 			<input type="search" id='search' placeholder='输入关键字...' ng-model="search"/>
@@ -67,8 +67,8 @@
 				</a>
 		</div>
 		<ul class="card-footer card-footer-ul inline-block-ul img-brower-list">
-			<li class="img" ng-repeat="img in list.dispatch_image">
-				<img src="{{img.image_path}}">
+			<li class="img" ng-repeat="img in list.dispatch_image" ng-click="viewImgFun($index)">
+				<img src="{{img.image_path}}"  >
 			</li>
 			<li><button class="icon icon-picture add-img-brower button button-light" ng-click="uploadImg()"> +</button></li>
 		</ul>

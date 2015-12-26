@@ -34,10 +34,10 @@
 <!-- 搜索栏 -->
 <div class="bar bar-footer white-bg" style="top:4.7rem">
 	<div class="searchbar">
-		<a class="searchbar-cancel">取消</a>
+		<a class="searchbar-cancel" ng-click=" search ='' " >取消</a>
 		<div class="search-input">
 			<label class="icon icon-search" for="search"></label>
-			<input type="search" id='search' placeholder='输入关键字...' />
+			<input type="search" id='search' placeholder='输入关键字...' ng-model="search" />
 		</div>
 	</div>
 </div>
@@ -55,7 +55,7 @@
 		}
 	</style>
 
-	<div class="card" ng-repeat="list in statusList">
+	<div class="card" ng-repeat="list in statusList | filter:search |orderBy:'-start_time'">
 
 		<div class="card-header">
 			<span>送货状态：<span class="danger-color">等待配送</span></span>

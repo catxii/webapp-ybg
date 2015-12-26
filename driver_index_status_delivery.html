@@ -32,7 +32,7 @@
 <!-- 搜索栏 -->
 <div class="bar bar-footer white-bg" style="top:4.7rem">
 	<div class="searchbar">
-		<a class="searchbar-cancel">取消</a>
+		<a class="searchbar-cancel" ng-click=" search ='' ">取消</a>
 		<div class="search-input">
 			<label class="icon icon-search" for="search"></label>
 			<input type="search" id='search' placeholder='输入关键字...' ng-model="search"/>
@@ -57,7 +57,7 @@
 		</div>
 		<div class="card-content">
 			<a class="card-content-inner  arrow-bg-right list-font-info" style="display:block" href="#/driver/detail" data-transition="slide-in" external  ng-click="view_order_detail()">
-				订单编号：{{list}}<br/>
+				订单编号：{{list.order.code}}<br/>
 				送货地址：{{list.site_name.name}}<br/>
 				支付方式：<span ng-show="list.order.status_pay==1">已支付</span><span  ng-show="list.order.status_pay==0">未支付</span><span  ng-show="list.order.status_pay==2">未支付</span><br/>
 				商品金额：<span class="price">￥ {{list.order_price.p1}}</span><br/>

@@ -50,7 +50,6 @@ function login_model($scope, $http) {
 		//登陆请求
 	var ajaxUrl = publicAjaxUrl + "Mobile/Driver/";
 	$scope.submit = function() {
-		loadingModel();
 		$.ajax({
 			url: ajaxUrl + "login.html",
 			type: "post",
@@ -217,7 +216,7 @@ function status_delivery_model($scope, $http) {
 	//	alert(myData.params.id)
 	var orderURL = publicAjaxUrl + "index.php?m=Mobile&c=Driver&a=onSend";
 	$http.get(orderURL, myData).success(function(data) {
-			$scope.statusList = [data];
+			$scope.statusList = data;
 		})
 		//获取当前订单ID
 	$scope.view_order_detail = function() {
@@ -279,60 +278,126 @@ function status_complete_model($scope, $http) {
 	$scope.startnum = startNumber;
 	$scope.deliverynum = onSendNumber;
 	$scope.completenum = completeNumber;
-	var orderURL = publicAjaxUrl + "index.php?m=Mobile&c=Driver&a=completeSend";
-	$http.get(orderURL, myData).success(function(data) {
-			$scope.statusList = data;
-	})
-	//获取当前订单ID
+	function getList(){
+		var orderURL = publicAjaxUrl + "index.php?m=Mobile&c=Driver&a=completeSend";
+		$http.get(orderURL, myData).success(function(data) {
+				$scope.statusList = data;
+		})
+	}
+	getList();
+	//点击当前订单，获取当前订单ID
 	$scope.view_order_detail = function() {
 		startOrderId = this.list.id
 	}
+	//上传图片
 	$scope.uploadImg = function(){
 		var that = this;
-		var imgUpUrl = publicAjaxUrl+"index.php?m=Mobile&c=Driver&a=downphotograph";
-		var myImgData = {
-			params: {
-				"dispatch_id": that.statusList.id,
-				"driver_id": userid,
-				"site_info_id":"", //工地地址
-				"media_id":""//图片地址
-			}
-		}
-		
 		// 调取相册照片
 		function galleryImg() { 
 			// 从相册中选择图片
 			// outSet("从相册中选择图片:");
 		    plus.gallery.pick( function(path){
-		        //showImg( path );
-		        //createItem(path);
-		        // $.alert(path);
-		         var orderURL = publicAjaxUrl+"index.php?m=Mobile&c=Driver&a=uploadFile";
-		        //var orderURL = "http://demo.dcloud.net.cn/helloh5/uploader/upload.php";
+		        var imgURL = publicAjaxUrl+"Mobile/Driver/uploadFile.html?dispatch_id="+that.statusList.id+"&driver_id="+userid;
+		        //var imgURL = "http://demo.dcloud.net.cn/helloh5/uploader/upload.php";
 				$.showPreloader("开始上传");
-				var task=plus.uploader.createUpload(orderURL,
+				var task=plus.uploader.createUpload(imgURL,
 					{method:"POST"},
 					function(t,status){ //上传完成
 						if(status==200){
 							$.hidePreloader();
-							$.toast("上传成功");
-							$.alert(t.responseText);
+							var files = JSON.parse(t.responseText).files.ybgimg;
+							var success = files.success;
+							if(success == 1){
+								$.toast("上传成功");
+								//把图片传到数据库
+								var imgUpUrl = publicAjaxUrl+"index.php?m=Mobile&c=Driver&a=downphotograph";
+								var myImgData = {
+									params: {
+										"dispatch_id": that.list.id,
+										"driver_id": userid,
+										"site_info_id":that.list.order.site_info_id, //工地地址
+										"media_id":files.url//图片地址
+									}
+								}
+								$http.get(imgUpUrl, myImgData).success(function(data) {
+									if(data.success == 1){
+										getList(); //更新列表视图
+										loadingModel(); //显示加载动画
+									}else{
+										$.toast("发生错误了，请联系云包猿")
+									}
+								})
+							}else{
+								$.toast("上传失败");
+							}
+							
 						}else{
-							alert(JSON.stringify(t));
 							$.hidePreloader();
-							alert("上传失败："+status);
+							$.alert("上传失败："+status);
 						}
 					}
 				);
-				task.addFile(path,{key:"云包公图片"});
+				task.addFile(path,{key:"ybgimg"});
 				task.start();
 
 		    }, function ( e ) {
-		    	$.alert( "取消选择图片" );
+		    	// $.alert( "取消选择图片" );
 		    }, {filter:"image"} );
 		}
 		galleryImg();
 	}
+	//查看图片
+	//调用图片浏览器方法
+    //点击打开图片
+	$scope.viewImgFun = function($index){
+
+		var that = this;
+		var imglist = this.list.dispatch_image;
+		var imgArray = []; 
+		for(var k in imglist){
+			imgArray.push(imglist[k].image_path)
+		}
+		imgBrower(imgArray,$index);
+			   	    
+	    function imgBrower(img,index){
+	    	var myPhotoBrowserPopup = $.photoBrowser({
+	    	    photos : img, //显示的图片
+	    	    type: 'popup',
+	    	    theme: 'light',
+	    	    type: 'standalone'
+	    	});
+	    	    
+		    //获取点击的图片索引
+		    //console.log(index);
+		    //打开图片显示
+		    myPhotoBrowserPopup.open(index);
+		    //增加删除按钮
+		    $(".photo-browser .bar-nav").append("<a class='icon icon-remove pull-right'></a>");
+		      
+		    //删除图片按钮
+		    $(".icon-remove").click(function(){
+		        $.confirm('你确认要删除吗?', function () {
+		        	var indexNumber = $(".photo-browser-current").text() -1;
+					var imgId = imglist[indexNumber].id;
+				    $.post(publicAjaxUrl+"mobile/driver/delimage",{image_id:imgId},function(data){
+				        //console.log( data );
+				        if(data.status == '1'){
+				        	getList(); //更新列表视图
+				        	loadingModel() //显示加载动画
+				        }else if(data.status == '0'){
+				        	$.alert("失败了，请联系云包猿");
+				        }else{
+				        	$.alert('未知错误');
+				        }   
+				    });
+				    //$(".img-brower-list").append(uploadImgBtn); */
+				    $(".photo-browser").remove();
+		        });
+		    });
+		        
+	    }
+	};
+
 }
 
 //配送详情页面
