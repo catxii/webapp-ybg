@@ -51,7 +51,8 @@
 			display: block;
 		}
 	</style>
-	<div class="card" ng-repeat="list in statusList | filter:search |orderBy:'-start_time'">
+	<div class="card" ng-repeat="list in statusList | filter:search |orderBy:'-start_time'" ng-if="true">
+		<div ng-repeat="k in list_length">{{k}}</div>
 		<div class="card-header">
 			<span>送货状态：<span class="sucess-color">已签收</span></span>
 		</div>
